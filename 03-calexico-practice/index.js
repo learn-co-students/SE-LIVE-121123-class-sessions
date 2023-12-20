@@ -23,6 +23,7 @@ function getAllDishes(url) {
 function renderMenu(dishObj) {
   const dish = document.createElement("span");
   dish.textContent = dishObj.name;
+  dish.addEventListener('click', () => renderDetails(dishObj))
   menuItems.append(dish);
 }
 

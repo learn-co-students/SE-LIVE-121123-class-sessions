@@ -17,6 +17,9 @@ As a user, I can:
 - [x] Append <span> to `menu-items`
 2. View the details of the first menu item in the Dish detail section on page load
 - [x] Select DOM elements from dish section
-- [] Assign values of dish from data to DOM elements
+- [x] Assign values of dish from data to DOM elements
 - [x] Wrap this in a render function
 - [x] Call the fn, passing the first dish as arg
+3. Click a menu item and see it's details displayed in the dish detail section
+- [x] Attach listeners to each menu item
+- [x] Listener calls renderDetails with dishObj
