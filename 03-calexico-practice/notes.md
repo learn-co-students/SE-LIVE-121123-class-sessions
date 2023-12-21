@@ -23,3 +23,10 @@ As a user, I can:
 3. Click a menu item and see it's details displayed in the dish detail section
 - [x] Attach listeners to each menu item
 - [x] Listener calls renderDetails with dishObj
+4. Add menu items to  'my cart'. Cart only needs to increment when same dish is selected, but can reset when is selected (no persistence needed front or back)
+- [x] select form, # in cart from DOM
+- [x] attach listener to form and handle submit (preventDefault)
+- [x] get form input either from selected DOM node OR from e.target
+- [x] get current value of cart
+- [x] calculate new value of cart
+- [x] update DOM
