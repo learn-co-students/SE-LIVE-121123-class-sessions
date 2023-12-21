@@ -30,3 +30,20 @@ As a user, I can:
 - [x] get current value of cart
 - [x] calculate new value of cart
 - [x] update DOM
+
+## Bonus Deliverables
+1. [x] Persist cart value for each item on front end
+2. [x] Calculate *total cost* of cart for all items and display somewhere on page
+3. [x] Persist cart value on the back end with PATCH requests
+
+## Data shape
+```json
+{
+    "id": 1,
+    "name": "Chips & Guacamole",
+    "image": "./assets/calexico-guac.webp",
+    "description":"House-made tortilla chips with fresh daily made guacamole",
+    "price": 13.00,
+    "number_in_bag": 0
+}
+```
