@@ -18,24 +18,24 @@ class TestVisitor:
         assert isinstance(visitor.name, str)
 
         # comment out the next two lines if using Exceptions
-        visitor2 = Visitor(3)
-        assert hasattr(visitor2, "name") == False
+        # visitor2 = Visitor(3)
+        # assert hasattr(visitor2, "name") == False
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Visitor(2)
+        with pytest.raises(Exception):
+            Visitor(2)
 
     def test_name_setter(self):
         """Cannot change the name of the visitor"""
         vis = Visitor("Poppy")
 
         # comment out the next two lines if using Exceptions
-        vis.name = "Rose"
-        assert vis.name == "Poppy"
+        # vis.name = "Rose"
+        # assert vis.name == "Poppy"
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     vis.name = "Warren"
+        with pytest.raises(Exception):
+            vis.name = "Warren"
 
     def test_has_many_trips(self):
         """Visitor has many Trips."""

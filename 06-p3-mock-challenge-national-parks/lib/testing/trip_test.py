@@ -20,18 +20,21 @@ class TestTrip:
 
     # Test for raising exceptions when setting invalid properties
     def test_trip_property_exceptions(self):
-        visitor = "John Doe"
-        national_park = "Yellowstone"
-        trip = Trip(visitor, national_park, "2024-01-01", "2024-01-07")
-        assert hasattr(trip, "visitor") == False
-        assert hasattr(trip, "national_park") == False
+        # visitor = "John Doe"
+        # national_park = "Yellowstone"
+        # trip = Trip(visitor, national_park, "2024-01-01", "2024-01-07")
+        # assert hasattr(trip, "visitor") == False
+        # assert hasattr(trip, "national_park") == False
 
         # uncomment the next five lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     trip.visitor = "Not a Visitor"
+        visitor = Visitor("John Doe")
+        national_park = NationalPark("YellowStone")
+        trip = Trip(visitor, national_park, "2024-01-01", "2024-01-07")
+        with pytest.raises(Exception):
+            trip.visitor = "Not a Visitor"
 
-        # with pytest.raises(Exception):
-        #     trip.national_park = "Not a NationalPark"
+        with pytest.raises(Exception):
+            trip.national_park = "Not a NationalPark"
 
     def test_get_all_trips(self):
         """has a class attr all populated with each Trip instance"""

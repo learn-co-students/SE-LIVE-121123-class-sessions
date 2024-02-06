@@ -14,6 +14,8 @@ class Visitor:
             and not hasattr(self, "name")
         ):
             self._name = value
+        else:
+            raise Exception
 
     def trips(self):
         from classes.trip import Trip

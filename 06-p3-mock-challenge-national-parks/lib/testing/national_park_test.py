@@ -18,24 +18,24 @@ class TestNationalParks:
         assert isinstance(np.name, str)
 
         # comment out the next two lines if using Exceptions
-        np.name = 2
-        assert np.name == "Wild West"
+        # np.name = 2
+        # assert np.name == "Wild West"
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     NationalPark(2)
+        with pytest.raises(Exception):
+            NationalPark(2)
 
     def test_name_setter(self):
         """Cannot change the name of the NationalPark"""
         np = NationalPark("under the sea")
 
         # comment out the next two lines if using Exceptions
-        np.name = "over the sea"
-        assert np.name == "under the sea"
+        # np.name = "over the sea"
+        # assert np.name == "under the sea"
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     np.name = "over the sea"
+        with pytest.raises(Exception):
+            np.name = "over the sea"
 
     def test_has_many__trips(self):
         """NationalPark has many Trips."""
@@ -107,15 +107,15 @@ class TestNationalParks:
         t_3 = Trip(vis2, p1, "January 5th", "January 20th")
         assert p1.best_visitor().name == "Tom"
 
-    # def test_most_visited(self):
-    #     """Get the park that had the most visits"""
-    #     NationalPark.all.clear()
-    #     p1 = NationalPark("Yosemmette")
-    #     p2 = NationalPark("Rocky Mountain")
-    #     vis = Visitor("Tom")
-    #     t_1 = Trip(vis, p1, "May 5th", "May 9th")
-    #     t_2 = Trip(vis, p1, "January 5th", "January 20th")
-    #     t_3 = Trip(vis, p2, "January 5th", "January 20th")
-    #     t_4 = Trip(vis, p2, "Feb 12th", "Feb 18th")
-    #     t_5 = Trip(vis, p1, "April 9th", "April 14th")
-    #     assert NationalPark.most_visited() == p1
+    def test_most_visited(self):
+        """Get the park that had the most visits"""
+        NationalPark.all.clear()
+        p1 = NationalPark("Yosemmette")
+        p2 = NationalPark("Rocky Mountain")
+        vis = Visitor("Tom")
+        t_1 = Trip(vis, p1, "May 5th", "May 9th")
+        t_2 = Trip(vis, p1, "January 5th", "January 20th")
+        t_3 = Trip(vis, p2, "January 5th", "January 20th")
+        t_4 = Trip(vis, p2, "Feb 12th", "Feb 18th")
+        t_5 = Trip(vis, p1, "April 9th", "April 14th")
+        assert NationalPark.most_visited() == p1

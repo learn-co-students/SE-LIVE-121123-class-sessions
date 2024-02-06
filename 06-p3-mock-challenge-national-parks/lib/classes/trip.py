@@ -19,6 +19,8 @@ class Trip:
 
         if isinstance(value, Visitor):
             self._visitor = value  # TODO: raise exception
+        else:
+            raise Exception
 
     @property
     def national_park(self):
@@ -30,6 +32,8 @@ class Trip:
 
         if isinstance(value, NationalPark):
             self._national_park = value  # TODO: raise exception
+        else:
+            raise Exception
 
     def __repr__(self):
         return (

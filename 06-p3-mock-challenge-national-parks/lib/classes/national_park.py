@@ -2,8 +2,12 @@ from classes.trip import Trip
 
 
 class NationalPark:
+
+    all = []
+
     def __init__(self, name):
         self.name = name
+        self.__class__.all.append(self)
 
     @property
     def name(self):
@@ -13,6 +17,8 @@ class NationalPark:
     def name(self, value):
         if type(value) == str and not hasattr(self, "_name"):
             self._name = value
+        else:
+            raise Exception
 
     def trips(self):
         return [trip for trip in Trip.all if trip.national_park == self]
@@ -39,7 +45,7 @@ class NationalPark:
 
     @classmethod
     def most_visited(cls):
-        pass
+        return max(cls.all, key=lambda park: park.total_visits())
 
     def __repr__(self) -> str:
         return f"<NationalPark name: {self.name}>"
