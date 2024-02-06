@@ -23,3 +23,6 @@ class Audition:
 
     def call_back(self):
         self.hired = True
+
+    def __repr__(self):
+        return f"<Audition | actor: {self.actor}, hired: {self.hired}"

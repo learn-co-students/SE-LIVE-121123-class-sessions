@@ -41,3 +41,14 @@ class Role:
             return "No understudy has been hired for this role"
         else:
             return hired_auditions[1]
+
+    @classmethod
+    def not_cast(cls):
+        return [
+            role
+            for role in cls.all
+            if not any([audition.hired for audition in role.auditions()])
+        ]
+
+    def __repr__(self):
+        return f"<Role {self.character_name}>"
