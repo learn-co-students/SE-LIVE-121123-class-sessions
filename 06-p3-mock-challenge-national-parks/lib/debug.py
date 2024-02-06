@@ -9,6 +9,9 @@ if __name__ == "__main__":
 
     p1 = NationalPark("Yosemite")
     v1 = Visitor("Jeremy")
+    v2 = Visitor("Lehigh")
     t1 = Trip(v1, p1, "Sept 16", "Sept 23")
+    t2 = Trip(v2, p1, "Jul 2", "Jul 3")
+    t3 = Trip(v2, p1, "Jul 12", "Jul 13")
 
     ipdb.set_trace()

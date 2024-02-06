@@ -15,16 +15,27 @@ class NationalPark:
             self._name = value
 
     def trips(self):
-        pass
+        return [trip for trip in Trip.all if trip.national_park == self]
 
     def visitors(self):
-        pass
+        return [*set([trip.visitor for trip in self.trips()])]
 
     def total_visits(self):
-        pass
+        return len(self.trips())
 
     def best_visitor(self):
-        pass
+        # max_visitor = None
+        # max_visits = 0
+        # for visitor in self.visitors():
+        #     v_visits = len([trip for trip in self.trips() if trip.visitor == visitor])
+        #     if v_visits > max_visits:
+        #         max_visitor = visitor
+        #         max_visits = v_visits
+        # return max_visitor
+        return max(
+            self.visitors(),
+            key=lambda v: len([t for t in self.trips() if t.visitor == v]),
+        )
 
     @classmethod
     def most_visited(cls):

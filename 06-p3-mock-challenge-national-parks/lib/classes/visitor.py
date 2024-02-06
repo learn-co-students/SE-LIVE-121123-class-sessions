@@ -1,6 +1,3 @@
-from classes.trip import Trip
-
-
 class Visitor:
     def __init__(self, name):
         self.name = name
@@ -19,10 +16,12 @@ class Visitor:
             self._name = value
 
     def trips(self):
-        pass
+        from classes.trip import Trip
+
+        return [trip for trip in Trip.all if trip.visitor == self]
 
     def national_parks(self):
-        pass
+        return [*set([trip.national_park for trip in self.trips()])]
 
     def __repr__(self) -> str:
         return f"<Visitor name: {self.name}>"
