@@ -16,18 +16,17 @@ class Coffee:
     def orders(self, new_order=None):
         from classes.order import Order
 
-        pass
+        return [order for order in Order.all if order.coffee == self]  # like filter
 
     def customers(self, new_customer=None):
-        from classes.customer import Customer
 
-        pass
+        return list(set([order.customer for order in self.orders()]))  # like map
 
     def num_orders(self):
-        pass
+        return len(self.orders())
 
     def average_price(self):
-        pass
+        return sum([order.price for order in self.orders()]) / self.num_orders()
 
     def __repr__(self):
         return f"<Coffee {self.name}> "
