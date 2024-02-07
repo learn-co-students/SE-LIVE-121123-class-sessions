@@ -1,3 +1,6 @@
+from classes.order import Order
+
+
 class Customer:
     def __init__(self, name):
         self.name = name
@@ -14,11 +17,11 @@ class Customer:
             raise Exception("Invalid name")
 
     def orders(self, new_order=None):
-        from classes.order import Order
 
-        pass
+        return [order for order in Order.all if order.customer == self]
 
     def coffees(self, new_coffee=None):
-        from classes.coffee import Coffee
+        return [*set([order.coffee for order in self.orders()])]
 
-        pass
+    def create_order(self, coffee, price):
+        Order(self, coffee, price)
