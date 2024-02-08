@@ -10,6 +10,7 @@ flask-sqlalchemy = "*"
 pick = "*"
 faker = "*"
 rich = "*"
+ipdb = "*"
 
 [dev-packages]
 

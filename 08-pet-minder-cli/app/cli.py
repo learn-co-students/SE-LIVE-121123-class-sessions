@@ -1,18 +1,7 @@
-from config import app, db, migrate
-
-# from prompt_toolkit import prompt
+from models import db
 from rich import print
 
-# Configure the database URI
-# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///pet_app.db"
-# db.init_app(app)
-
-
-# def apply_migrations():
-#     config = Config("alembic.ini")
-#     config.set_main_option("sqlalchemy.url", db.engine.url)
-#     command.upgrade(config, "head")
-
+from app.database import app, migrate
 
 # Tasks:
 # 1. Show all the pets
@@ -25,8 +14,7 @@ from rich import print
 
 
 if __name__ == "__main__":
-    # Apply migrations
-    # apply_migrations()
+    # Give app context at runtime and initialize Migrate obj
     with app.app_context():
         migrate.init_app(app, db)
 
