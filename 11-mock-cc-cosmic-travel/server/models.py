@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
-from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
 
 convention = {
@@ -26,8 +26,10 @@ class Planet(db.Model, SerializerMixin):
     nearest_star = db.Column(db.String)
 
     # Add relationship
+    missions = db.relationship("Mission", back_populates=("planet"))
 
     # Add serialization rules
+    serialize_rules = ("-missions.planet",)
 
 
 class Scientist(db.Model, SerializerMixin):
@@ -38,10 +40,18 @@ class Scientist(db.Model, SerializerMixin):
     field_of_study = db.Column(db.String)
 
     # Add relationship
+    missions = db.relationship("Mission", back_populates=("scientist"), cascade=("all, delete"))
+
 
     # Add serialization rules
+    serialize_rules = ("-missions.scientist",)
 
     # Add validation
+    @validates("name", "field_of_study")
+    def valdates_name_field_of_study(self, key, value):
+        if not value:
+            raise ValueError(f"{key} cannot be blank")
+        return value
 
 
 class Mission(db.Model, SerializerMixin):
@@ -49,12 +59,28 @@ class Mission(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    scientist_id = db.Column(db.Integer, db.ForeignKey("scientists.id"))
+    planet_id = db.Column(db.Integer, db.ForeignKey("planets.id"))
 
     # Add relationships
+    planet = db.relationship("Planet", back_populates=("missions"))
+    scientist = db.relationship("Scientist", back_populates=("missions"))
 
     # Add serialization rules
+    serialize_rules = ("-planet.missions", "-scientist.missions",)
 
     # Add validation
+    @validates("name")
+    def validate_name(self, key, name):
+        if not name:
+            raise ValueError("Name cannot be blank")
+        return name
+    
+    @validates("planet_id", "scientist_id")
+    def validate_foreign_keys(self, key, value):
+        if not value:
+            raise ValueError(f"{key} cannot be blank")
+        return value
 
 
 # add any models you may need.
