@@ -16,6 +16,7 @@ function Home() {
 
   const removeProducer = id =>
     setProducers(producers.filter(producer => producer.id !== id));
+    
   const producerList = producers.map(producer => (
     <ProducerCard
       key={producer.id}
