@@ -54,8 +54,28 @@ class ResearchById(Resource):
         return make_response({}, 204)
 
 
+class Authors(Resource):
+    def get(self):
+        authors = [a.to_dict(rules=("-research_authors",)) for a in Author.query.all()]
+        return make_response(authors, 200)
+
+
+class ResearchAuthors(Resource):
+    def post(self):
+        req_json = request.get_json()
+        try:
+            new_ra = ResearchAuthor(**req_json)
+        except:
+            return make_response({"errors": ["validation errors"]}, 422)
+        db.session.add(new_ra)
+        db.session.commit()
+        return make_response(new_ra.author.to_dict(rules=("-research_authors",)), 201)
+
+
 api.add_resource(Researches, "/research")
 api.add_resource(ResearchById, "/research/<int:id>")
+api.add_resource(Authors, "/authors")
+api.add_resource(ResearchAuthors, "/research_author")
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
