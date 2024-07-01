@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from sqlalchemy.ext.associationproxy import association_proxy
@@ -32,6 +34,32 @@ class Producer(db.Model, SerializerMixin, TimestampMixin):
     operation_size = db.Column(db.String)
     image = db.Column(db.String)
 
+    cheeses = db.relationship("Cheese", back_populates="producer", cascade="delete")
+
+    serialize_rules = (
+        "-cheeses.producer",
+        "-updated_at",
+        "-created_at",
+    )
+
+    @validates("founding_year")
+    def validate_founding_year(self, key, year):
+        import ipdb
+
+        # ipdb.set_trace()
+        if not 1900 < year < int(datetime.now().year):
+            raise ValueError("Founding year must be between 1900 and present")
+        return year
+
+    @validates("operation_size")
+    def validate_operation_size(self, key, size):
+        OP_SIZE = ["small", "medium", "large", "family", "corporate"]
+        if size not in OP_SIZE:
+            raise ValueError(
+                "Operation size must be one of small, medium, large, family, corporate"
+            )
+        return size
+
     def __repr__(self):
         return f"<Producer {self.id}>"
 
@@ -47,6 +75,30 @@ class Cheese(db.Model, SerializerMixin, TimestampMixin):
     price = db.Column(db.Float)
 
     producer_id = db.Column(db.Integer, db.ForeignKey("producers.id"), nullable=False)
+
+    producer = db.relationship("Producer", back_populates="cheeses")
+
+    serialize_rules = (
+        "-producer.cheeses",
+        "-updated_at",
+        "-created_at",
+    )
+
+    @validates("production_date")
+    def validate_production_date(self, key, date):
+        import ipdb
+
+        # ipdb.set_trace()
+        pdate = datetime.strptime(date, "%Y-%m-%d")
+        if pdate.date() >= datetime.now().date():
+            raise ValueError("Production date must be in the past")
+        return pdate
+
+    @validates("price")
+    def validate_price(self, key, price):
+        if not 1.00 <= price <= 45.00:
+            raise ValueError("Price must be between 1.00 and 45.00")
+        return price
 
     def __repr__(self):
         return f"<Cheese {self.id}>"

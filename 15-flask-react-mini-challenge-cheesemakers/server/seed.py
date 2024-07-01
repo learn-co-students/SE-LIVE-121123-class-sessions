@@ -21,7 +21,7 @@ def seed_producers():
     for _ in range(10):
         producer = Producer(
             name=fake.company(),
-            founding_year=randint(1900, 2020),
+            founding_year=randint(1901, 2020),
             region=fake.state(),
             operation_size=rc(OPERATIONS),
             image=fake.image_url(),
