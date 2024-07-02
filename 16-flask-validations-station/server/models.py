@@ -48,7 +48,7 @@ class Platform(db.Model):
 
     __table_args__ = (
         db.UniqueConstraint(
-            "platform_num", "station_id", name="unique_platform_per_station"
+            "station_id", "platform_num", name="unique_platform_per_station"
         ),
     )
 
